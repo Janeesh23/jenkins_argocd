@@ -5,6 +5,7 @@ pipeline {
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
     }
   }
+
   stages {
     stage('Checkout') {
       steps {
@@ -12,42 +13,51 @@ pipeline {
         git branch: 'main', url: 'https://github.com/Janeesh23/jenkins_argocd.git'
       }
     }
+
     stage('Build and Test') {
       steps {
         sh 'mvn clean package'
       }
     }
+
     stage('Static Code Analysis') {
       environment {
         SONAR_URL = "http://44.202.151.17:9000"
       }
       steps {
         withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
-          sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+          sh '''
+            sonar-scanner \
+              -Dsonar.projectKey=shipping-service \
+              -Dsonar.sources=src/main/java \
+              -Dsonar.java.binaries=target/classes \
+              -Dsonar.host.url=${SONAR_URL} \
+              -Dsonar.login=$SONAR_AUTH_TOKEN
+          '''
         }
       }
     }
 
     stage('Build and Push Docker Image') {
-    steps {
+      steps {
         script {
-        def dockerImage = "janeesh4/robot:${BUILD_NUMBER}"
-        sh "docker build -t ${dockerImage} ."
-        withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
+          def dockerImage = "janeesh4/robot:${BUILD_NUMBER}"
+          sh "docker build -t ${dockerImage} ."
+          withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
             sh "docker push ${dockerImage}"
+          }
         }
-        }
-    }
+      }
     }
 
     stage('Update Deployment File') {
-    environment {
+      environment {
         GIT_REPO_NAME = "jenkins_argocd"
         GIT_USER_NAME = "Janeesh23"
-    }
-    steps {
+      }
+      steps {
         withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-        sh '''
+          sh '''
             git config user.email "jenkinsbot@example.com"
             git config user.name "jenkins_bot"
 
@@ -57,9 +67,9 @@ pipeline {
             git add helm/values.yaml
             git commit -m "Update image version to ${BUILD_NUMBER}"
             git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
-        '''
+          '''
         }
-    }
+      }
     }
   }
 }
