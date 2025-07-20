@@ -19,7 +19,7 @@ spec:
       {{ end }}
       containers:
       - name: shipping
-        image: janeesh4/robot:{{ .Values.image.version }}
+        image: janeesh4/shipping-service:{{ .Values.image.version }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 8080
