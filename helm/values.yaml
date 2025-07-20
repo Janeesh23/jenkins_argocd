@@ -1,5 +1,5 @@
 image:
-  version: 7
+  version: 10
   pullPolicy: IfNotPresent
 
 psp:
