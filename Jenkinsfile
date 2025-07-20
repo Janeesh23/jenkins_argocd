@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'janeesh4/jenkins-agent'
+      image 'janeesh4/custom-jenkins-agent'
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
     }
   }
@@ -22,26 +22,26 @@ pipeline {
 
     stage('Static Code Analysis') {
       environment {
-        SONAR_URL = "http://44.202.151.17:9000"
+        SONAR_URL = "http://34.201.116.83:9000"
       }
       steps {
         withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
           sh '''
-            sonar-scanner \
-              -Dsonar.projectKey=shipping-service \
-              -Dsonar.sources=src/main/java \
-              -Dsonar.java.binaries=target/classes \
-              -Dsonar.host.url=${SONAR_URL} \
-              -Dsonar.login=$SONAR_AUTH_TOKEN
+            mvn sonar:sonar \
+              -Dsonar.login=$SONAR_AUTH_TOKEN \
+              -Dsonar.host.url=$SONAR_URL \
+              -Dsonar.projectKey=shipping \
+              -Dsonar.projectName="Shipping Service"
           '''
         }
       }
     }
 
+
     stage('Build and Push Docker Image') {
       steps {
         script {
-          def dockerImage = "janeesh4/robot:${BUILD_NUMBER}"
+          def dockerImage = "janeesh4/shipping-service:${BUILD_NUMBER}"
           sh "docker build -t ${dockerImage} ."
           withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
             sh "docker push ${dockerImage}"
