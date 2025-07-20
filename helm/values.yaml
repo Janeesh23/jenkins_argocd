@@ -1,4 +1,11 @@
 image:
   version: 2
+  pullPolicy: IfNotPresent
+
 psp:
   enabled: false
+
+shipping:
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
