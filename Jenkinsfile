@@ -49,7 +49,6 @@ pipeline {
         }
       }
     }
-
     stage('Update Deployment File') {
       environment {
         GIT_REPO_NAME = "jenkins_argocd"
@@ -61,15 +60,16 @@ pipeline {
             git config user.email "jenkinsbot@example.com"
             git config user.name "jenkins_bot"
 
-            # Replace image tag in Helm values.yaml
-            sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" helm/values.yaml
+            # Replace image version in Helm values.yaml
+            sed -i "s/^  version: .*/  version: ${BUILD_NUMBER}/" helm/values.yaml
 
             git add helm/values.yaml
-            git commit -m "Update image version to ${BUILD_NUMBER}"
+            git commit -m "Update image version to ${BUILD_NUMBER}" || echo "No changes to commit"
             git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
           '''
         }
       }
     }
+
   }
 }
