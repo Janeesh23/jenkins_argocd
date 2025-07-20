@@ -6,13 +6,13 @@ pipeline {
     }
   }
 
-  // stages {
-  //   stage('Checkout') {
-  //     steps {
-  //       sh 'echo passed'
-  //       git branch: 'main', url: 'https://github.com/Janeesh23/jenkins_argocd.git'
-  //     }
-  //   }
+  stages {
+    // stage('Checkout') {
+    //   steps {
+    //     sh 'echo passed'
+    //     git branch: 'main', url: 'https://github.com/Janeesh23/jenkins_argocd.git'
+    //   }
+    // }
 
     stage('Build and Test') {
       steps {
@@ -37,7 +37,6 @@ pipeline {
       }
     }
 
-
     stage('Build and Push Docker Image') {
       steps {
         script {
@@ -49,6 +48,7 @@ pipeline {
         }
       }
     }
+
     stage('Update Deployment File') {
       environment {
         GIT_REPO_NAME = "jenkins_argocd"
@@ -70,6 +70,5 @@ pipeline {
         }
       }
     }
-
-  }
-}
+  } 
+} 
