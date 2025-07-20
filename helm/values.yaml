@@ -1,2 +1,4 @@
 image:
   version: 2
+psp:
+  enabled: false
