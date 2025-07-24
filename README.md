@@ -1,10 +1,5 @@
 # IBM Instana’s RobotShop Microservices on AWS EKS
-
-> End-to-end DevOps pipeline to deploy RobotShop microservices with full automation using Terraform, Jenkins, Argo CD, Helm, and AWS ALB Ingress Controller on EKS.
-
 ---
-## 🔧 Project Summary
-
 This project demonstrates how to deploy the open-source [RobotShop microservices app](https://github.com/instana/robot-shop) on AWS EKS with CI/CD and GitOps practices.
 
 ###  Key Accomplishments
