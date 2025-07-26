@@ -5,10 +5,10 @@ This project demonstrates how to deploy the open-source [RobotShop microservices
 ###  Key Accomplishments
 
 - **Provisioned AWS Infrastructure**  
-  Used custom reusable **Terraform modules** to create VPC, EKS cluster, and networking.
+  Used custom reusable **Terraform modules** to create VPC and EKS cluster
 
 - **Deployed ALB Ingress Controller**  
-  Configured the **AWS ALB Ingress Controller** to expose services via Application Load Balancer with path-based routing.
+  Configured the AWS ALB Ingress Controller to expose the web service with path-based routing
 
 - **Remote State Configuration**  
   Configured **S3 backend** and **DynamoDB locking** for consistent Terraform operations and safe collaboration.
