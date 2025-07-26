@@ -1,6 +1,5 @@
 # IBM Instana’s RobotShop Microservices on AWS EKS
-- **Deployed the Instana Robot Shop microservices application on Amazon EKS
-  Using Helm charts
+- **Deployed the Instana Robot Shop microservices application on Amazon EKS using Helm charts**
 - **Provisioned AWS Infrastructure**  
   Used custom reusable **Terraform modules** to create VPC and EKS cluster
 
@@ -32,7 +31,7 @@
 | Layer              | Tool / Service                     |
 |--------------------|------------------------------------|
 | IaC                | Terraform                          |
-| Cloud              | AWS (EKS, EC2, S3, DynamoDB)       |
+| Cloud              | AWS (EKS, VPC, EC2, S3, DynamoDB)  |
 | Ingress            | AWS ALB Ingress Controller         |
 | CI/CD              | Jenkins, Argo CD                   |
 | Containerization   | Docker                             |
