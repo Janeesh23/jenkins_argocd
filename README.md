@@ -1,8 +1,6 @@
 # IBM Instana’s RobotShop Microservices on AWS EKS
 ---
-This project demonstrates how to deploy the open-source [RobotShop microservices app](https://github.com/instana/robot-shop) on AWS EKS with CI/CD and GitOps practices.
 
-###  Key Accomplishments
 
 - **Provisioned AWS Infrastructure**  
   Used custom reusable **Terraform modules** to create VPC and EKS cluster
