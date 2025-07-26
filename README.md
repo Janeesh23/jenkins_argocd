@@ -40,7 +40,6 @@ This project demonstrates how to deploy the open-source [RobotShop microservices
 | CI/CD              | Jenkins, Argo CD                   |
 | Containerization   | Docker                             |
 | Orchestration      | Kubernetes (EKS)                   |
-| GitOps             | Argo CD                            |
 | Storage            | AWS gp2 PersistentVolumes          |
 
 ---
