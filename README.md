@@ -1,5 +1,5 @@
 # IBM Instana’s RobotShop Microservices on AWS EKS
-- **Deployed the Instana Robot Shop microservices application on Amazon EKS using Helm charts**
+- **Deployed the  [Instana Robot Shop](https://github.com/instana/robot-shop.git) microservices application on AWS EKS.**
 - **Provisioned AWS Infrastructure**  
   Used custom reusable **Terraform modules** to create VPC and EKS cluster
 
