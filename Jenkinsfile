@@ -69,7 +69,7 @@ pipeline {
             sed -i "s/^  version: .*/  version: ${BUILD_NUMBER}/" helm/values.yaml
 
             git add helm/values.yaml
-            git commit -m "Update image version to ${BUILD_NUMBER}" || echo "No changes to commit"
+            git commit -m "Update image version to ${BUILD_NUMBER} [skip ci]" || echo "No changes to commit"
             git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
           '''
         }
