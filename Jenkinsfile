@@ -7,12 +7,17 @@ pipeline {
   }
 
   stages {
-    // stage('Checkout') {
-    //   steps {
-    //     sh 'echo passed'
-    //     git branch: 'main', url: 'https://github.com/Janeesh23/jenkins_argocd.git'
-    //   }
-    // }
+    stage('skip ci') {
+      steps {
+        scmSkip(deleteBuild: true, skipPattern:'.*\\[skip ci\\].*')
+      }
+    }
+    stage('Checkout') {
+      steps {
+        sh 'echo passed'
+        git branch: 'main', url: 'https://github.com/Janeesh23/jenkins_argocd.git'
+      }
+    }
 
     stage('Build and Test') {
       steps {
